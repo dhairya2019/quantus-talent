@@ -5,6 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="description" content="100+ Summer Internships for Chandigarh University students. Work on real projects in Marketing & Tech. Learn. Execute. Get Certified." />
 <title>Quantus Talent — Real Internships for CU Students</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="canonical" href="https://quantus-talent.vercel.app/" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://quantus-talent.vercel.app/" />
+<meta property="og:title" content="Quantus Talent — Real Internships for CU Students" />
+<meta property="og:description" content="100+ Summer Internships for Chandigarh University students. Work on real projects in Marketing & Tech. Learn → Execute → Get Certified." />
+<meta property="og:image" content="https://quantus-talent.vercel.app/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Quantus Talent — Real Internships for CU Students" />
+<meta name="twitter:description" content="Work on real projects in Marketing & Tech. Learn → Execute → Get Certified." />
+<meta name="twitter:image" content="https://quantus-talent.vercel.app/og.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -85,11 +98,52 @@
   .nav-links a:hover{color:var(--accent)}
   .nav-cta{display:flex;gap:10px;align-items:center}
   .nav-cta .btn{padding:10px 18px;font-size:14px}
-  .menu-toggle{display:none;background:transparent;border:0;cursor:pointer;color:var(--primary)}
+  .menu-toggle{display:none;background:transparent;border:0;cursor:pointer;color:var(--primary);padding:8px;align-items:center;justify-content:center;border-radius:8px}
+  .menu-toggle:hover{background:var(--bg-alt)}
   @media (max-width:880px){
-    .nav-links,.nav-cta .btn-outline{display:none}
+    .nav-links,.nav-cta .btn-outline,.nav-cta .nav-linkedin{display:none}
     .menu-toggle{display:inline-flex}
   }
+  .nav-linkedin{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:40px;height:40px;border-radius:10px;
+    color:var(--primary);border:1px solid var(--border);
+    transition:background .15s ease,border-color .15s ease,color .15s ease;
+  }
+  .nav-linkedin:hover{background:#0a66c2;border-color:#0a66c2;color:#fff}
+
+  /* ---------- Mobile drawer ---------- */
+  .drawer-backdrop{
+    position:fixed;inset:0;background:rgba(10,31,68,.5);
+    backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);
+    opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:60;
+  }
+  .drawer-backdrop.open{opacity:1;pointer-events:auto}
+  .drawer{
+    position:fixed;top:0;right:0;bottom:0;width:min(86vw,340px);
+    background:#fff;z-index:70;
+    transform:translateX(100%);transition:transform .25s ease;
+    display:flex;flex-direction:column;padding:24px;gap:8px;
+    box-shadow:-20px 0 40px rgba(10,31,68,.18);
+  }
+  .drawer.open{transform:translateX(0)}
+  .drawer-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+  .drawer-close{
+    background:transparent;border:0;cursor:pointer;color:var(--primary);
+    padding:8px;border-radius:8px;display:inline-flex;
+  }
+  .drawer-close:hover{background:var(--bg-alt)}
+  .drawer-links{display:flex;flex-direction:column;gap:2px;margin-top:8px}
+  .drawer-links a{
+    display:block;padding:14px 12px;border-radius:10px;
+    color:var(--text);font-weight:500;font-size:16px;
+    border-bottom:1px solid var(--border);
+  }
+  .drawer-links a:last-of-type{border-bottom:0}
+  .drawer-links a:hover{background:var(--bg-alt);color:var(--accent)}
+  .drawer-cta{margin-top:auto;display:flex;flex-direction:column;gap:10px;padding-top:16px}
+  .drawer-cta .btn{justify-content:center;width:100%}
+  body.no-scroll{overflow:hidden}
 
   /* ---------- Hero ---------- */
   .hero{
@@ -361,14 +415,41 @@
       <a href="#companies">For Companies</a>
     </nav>
     <div class="nav-cta">
+      <a class="nav-linkedin" href="https://www.linkedin.com/company/quantus-talent/" target="_blank" rel="noopener" aria-label="Quantus Talent on LinkedIn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
       <a class="btn btn-outline" href="#companies">For Companies</a>
       <a class="btn btn-primary" href="#apply">Apply Now <span class="arrow">→</span></a>
-      <button class="menu-toggle" aria-label="Open menu" onclick="document.getElementById('apply').scrollIntoView({behavior:'smooth'})">
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" onclick="toggleDrawer(true)">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
       </button>
     </div>
   </div>
 </header>
+
+<!-- ============== MOBILE DRAWER ============== -->
+<div class="drawer-backdrop" id="drawerBackdrop" onclick="toggleDrawer(false)"></div>
+<aside class="drawer" id="drawer" aria-label="Mobile navigation" aria-hidden="true">
+  <div class="drawer-head">
+    <a href="#top" class="brand" onclick="toggleDrawer(false)">
+      <span class="brand-mark">QT</span><span>Quantus Talent</span>
+    </a>
+    <button class="drawer-close" aria-label="Close menu" onclick="toggleDrawer(false)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <nav class="drawer-links" aria-label="Mobile">
+    <a href="#tracks" onclick="toggleDrawer(false)">Programs</a>
+    <a href="#how" onclick="toggleDrawer(false)">How It Works</a>
+    <a href="#outcomes" onclick="toggleDrawer(false)">Outcomes</a>
+    <a href="#companies" onclick="toggleDrawer(false)">For Companies</a>
+    <a href="https://www.linkedin.com/company/quantus-talent/" target="_blank" rel="noopener">LinkedIn ↗</a>
+  </nav>
+  <div class="drawer-cta">
+    <a class="btn btn-primary" href="#apply" onclick="toggleDrawer(false)">Apply Now →</a>
+    <a class="btn btn-wa" href="https://chat.whatsapp.com/LGP1iqQzJ5AKSO4JLJb6Nx?mode=gi_t" target="_blank" rel="noopener">Join WhatsApp</a>
+  </div>
+</aside>
 
 <!-- ============== HERO ============== -->
 <section class="hero" id="top">
@@ -541,6 +622,11 @@
         </ul>
       </div>
       <form class="form-card" onsubmit="handleSubmit(event)" novalidate>
+        <!-- Honeypot: hidden from humans, filled by bots -->
+        <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden">
+          <label for="website">Website (leave blank)</label>
+          <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+        </div>
         <div class="form-grid">
           <div class="field full">
             <label for="fullName">Full Name</label>
@@ -611,6 +697,10 @@
       <a href="#how">How It Works</a>
       <a href="#companies">For Companies</a>
       <a href="#apply">Apply</a>
+      <a href="https://www.linkedin.com/company/quantus-talent/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
     </div>
     <small>© 2026 Quantus Talent. Built for students.</small>
   </div>
@@ -621,13 +711,31 @@
   <span id="toastMsg">Application submitted! Redirecting to WhatsApp…</span>
 </div>
 
+<script defer src="/_vercel/insights/script.js"></script>
 <script>
   const GFORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfWf-Y7sjmoznkQRC3qPCmSHbReCyKCSMrAxrTbmlhEM9JQpA/formResponse';
   const WA_GROUP = 'https://chat.whatsapp.com/LGP1iqQzJ5AKSO4JLJb6Nx?mode=gi_t';
 
+  function toggleDrawer(open){
+    const drawer = document.getElementById('drawer');
+    const backdrop = document.getElementById('drawerBackdrop');
+    const toggle = document.querySelector('.menu-toggle');
+    if(!drawer || !backdrop) return;
+    drawer.classList.toggle('open', open);
+    backdrop.classList.toggle('open', open);
+    drawer.setAttribute('aria-hidden', String(!open));
+    if(toggle) toggle.setAttribute('aria-expanded', String(open));
+    document.body.classList.toggle('no-scroll', open);
+  }
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') toggleDrawer(false); });
+
   async function handleSubmit(e){
     e.preventDefault();
     const form = e.target;
+
+    // Honeypot: silently drop bot submissions
+    if(form.website && form.website.value){ form.reset(); return; }
+
     if(!form.checkValidity()){ form.reportValidity(); return; }
 
     const submitBtn = form.querySelector('button[type="submit"]');
