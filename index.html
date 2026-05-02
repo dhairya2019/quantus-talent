@@ -622,17 +622,42 @@
 </div>
 
 <script>
-  function handleSubmit(e){
+  const GFORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfWf-Y7sjmoznkQRC3qPCmSHbReCyKCSMrAxrTbmlhEM9JQpA/formResponse';
+  const WA_GROUP = 'https://chat.whatsapp.com/LGP1iqQzJ5AKSO4JLJb6Nx?mode=gi_t';
+
+  async function handleSubmit(e){
     e.preventDefault();
     const form = e.target;
     if(!form.checkValidity()){ form.reportValidity(); return; }
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalChildren = Array.from(submitBtn.childNodes).map(n => n.cloneNode(true));
+    submitBtn.disabled = true;
+    submitBtn.replaceChildren(document.createTextNode('Submitting…'));
+
+    const fd = new FormData();
+    fd.append('entry.1691936828', form.fullName.value);
+    fd.append('entry.1168957311', form.phone.value);
+    fd.append('entry.1407865810', form.email.value);
+    fd.append('entry.291931994',  form.college.value);
+    fd.append('entry.833850603',  form.interest.value);
+    fd.append('entry.1257929189', form.experience.value);
+
+    try {
+      await fetch(GFORM_URL, { method:'POST', mode:'no-cors', body: fd });
+    } catch(_) { /* no-cors: opaque response, submission still records */ }
+
     const toast = document.getElementById('toast');
     toast.classList.add('show');
+    setTimeout(()=>{ window.open(WA_GROUP, '_blank', 'noopener'); }, 900);
     setTimeout(()=>{
-      window.open('https://chat.whatsapp.com/LGP1iqQzJ5AKSO4JLJb6Nx?mode=gi_t', '_blank', 'noopener');
-    }, 900);
-    setTimeout(()=>toast.classList.remove('show'), 3200);
+      toast.classList.remove('show');
+      submitBtn.disabled = false;
+      submitBtn.replaceChildren(...originalChildren);
+    }, 3200);
+
     form.reset();
+    if(form.college) form.college.value = 'Chandigarh University';
   }
 </script>
 
